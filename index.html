@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+
+<body>
+    <h2 id="cat1"></h2>
+    <hr style="height:2px;border: none; background-color: black;">
+    <div class="Category">
+        <div class="boxed">
+            <p class="text" id="name1"> </p>
+            <button class="btn"
+                onclick="AddtoCart(obj[0].name,obj[0].productList[0].name,obj[0].productList[0].price)">Add to
+                Cart</button>
+            <button class="btn"
+                onclick="RemovefromCart(obj[0].name,obj[0].productList[0].name,obj[0].productList[0].price)">Remove</button>
+        </div>
+        <div class="boxed">
+            <p class="text" id="name2"></p>
+            <button class="btn"
+                onclick="AddtoCart(obj[0].name,obj[0].productList[1].name,obj[0].productList[1].price)">Add to
+                Cart</button>
+            <button class="btn"
+                onclick="RemovefromCart(obj[0].name,obj[0].productList[1].name,obj[0].productList[1].price)">Remove</button>
+        </div>
+    </div>
+    <h2 id="cat2"></h2>
+    <hr style="height:2px;border: none; background-color: black;">
+    <div class="Category">
+        <div class="boxed">
+            <p class="text" id="name3"> </p>
+            <button class="btn"
+                onclick="AddtoCart(obj[1].name,obj[1].productList[0].name,obj[1].productList[0].price)">Add to
+                Cart</button>
+            <button class="btn"
+                onclick="RemovefromCart(obj[1].name,obj[1].productList[0].name,obj[1].productList[0].price)">Remove</button>
+        </div>
+        <div class="boxed">
+            <p class="text" id="name4"> </p>
+            <button class="btn"
+                onclick="AddtoCart(obj[1].name,obj[1].productList[1].name,obj[1].productList[1].price)">Add to
+                Cart</button>
+            <button class="btn"
+                onclick="RemovefromCart(obj[1].name,obj[1].productList[1].name,obj[1].productList[1].price)">Remove</button>
+        </div>
+    </div>
+
+
+    <script>
+
+        let x = `[
+        {
+            "name": "Cosmetics",
+            "productList": [
+                {
+                    "name": "Hair Oil",
+                    "price": 122
+                },
+                {
+                    "name": "Face wash",
+                    "price": 123
+                }
+            ]
+        },
+        {
+            "name": "Household",
+            "productList": [
+                {
+                    "name": "Hair Oil",
+                    "price": 122
+                },
+                {
+                    "name": "Face wash",
+                    "price": 123
+                }
+
+            ]
+        }
+        
+    ]`
+
+
+
+        const obj = (JSON.parse(x));
+
+
+        document.getElementById("cat1").innerHTML = obj[0].name;
+        document.getElementById("name1").innerHTML = ("Name :" + (obj[0].productList[0].name) + "<br>" + "price:" + (obj[0].productList[0].price));
+        document.getElementById("name2").innerHTML = ("Name :" + (obj[0].productList[1].name) + "<br>" + "price:" + (obj[0].productList[1].price));
+        document.getElementById("cat2").innerHTML = obj[1].name;
+        document.getElementById("name3").innerHTML = ("Name :" + (obj[1].productList[0].name) + "<br>" + "price:" + (obj[1].productList[0].price));
+        document.getElementById("name4").innerHTML = ("Name :" + (obj[1].productList[1].name) + "<br>" + "price:" + (obj[1].productList[1].price));
+
+
+        var shoppingCart = [];
+        let totalproduct = 0;
+        let totalprice = 0;
+        function AddtoCart(name, productname, price) {
+
+            var singleProduct = {};
+            totalproduct = totalproduct + 1;
+            singleProduct.Name = name;
+            singleProduct.productListname = productname;
+            singleProduct.productListPrice = price;
+            let p = price;
+            totalprice = totalprice + p;
+            shoppingCart.push(singleProduct);
+            console.log("Product Added to the cart");
+            console.log("List of product present in cart array.");
+            console.table(shoppingCart);
+            console.log("total product in cart =" + totalproduct);
+            console.log("total price of cart item =" + totalprice);
+
+        }
+
+        function findindex(shoppingCart, name, productname, price) {
+            for (var i = 0; i < shoppingCart.length; i++) {
+                if (shoppingCart[i].Name == name && shoppingCart[i].productListname == productname && shoppingCart[i].productListPrice == price) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function RemovefromCart(name, productname, price) {
+            if (totalproduct > 0) {
+
+                var index = findindex(shoppingCart, name, productname, price);
+
+                if (index > -1) {
+                    shoppingCart.splice(index, 1);
+                    totalproduct = totalproduct - 1;
+                    totalprice = totalprice - price;
+                    console.log("Product removed from the cart.");
+                    console.log("List of product present in cart array if cart is empty show blank ");
+                    console.table(shoppingCart);
+                    console.log("total product in cart =" + totalproduct);
+                    console.log("total price of cart item =" + totalprice);
+
+                }
+                else {
+                    console.log("This product is not available in cart");
+                }
+
+            }
+            else {
+                console.log("No product available in cart");
+            }
+
+        }
+    </script>
+</body>
+
+</html>

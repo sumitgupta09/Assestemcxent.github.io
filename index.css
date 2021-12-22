@@ -1,0 +1,27 @@
+.boxed {
+    width: 200px;
+    height: 200px;
+    border: 2px solid blue;
+    display: flex;
+    flex-direction: column;
+    margin:10px;
+  }
+  .Category
+  {
+    
+    display: flex;
+    flex-direction:row;
+  }
+  .btn{
+    
+    
+    border: 2px solid black;
+    background-color: blue;
+    color: black;
+      margin: 4px;
+  }
+  .text
+  {
+    font-size: 25px;
+    padding: 10px;
+  }
